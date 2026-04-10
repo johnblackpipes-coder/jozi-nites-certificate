@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Certificate of Appreciation</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Poppins:ital,wght@0,400;0,600;0,700;1,400&amp;family=Great+Vibes&amp;display=swap" rel="stylesheet">
+  <style>
+  .certificate-wrap {
+    perspective: 1200px;
+    display: inline-block;
+  }
+  .certificate {
+    transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+  .certificate.tilting {
+    transition: none;
+  }
+  .shine-overlay {
+    position: absolute; inset: 0; pointer-events: none; border-radius: inherit;
+    background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.18) 0%, transparent 60%);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .certificate:hover .shine-overlay { opacity: 1; }
+
+  canvas#confetti-canvas {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 100;
+  }
+
+  .gold-border {
+    border: 3px solid #c9a84c;
+    outline: 2px solid #c9a84c;
+    outline-offset: 8px;
+  }
+
+  .seal {
+    width: 80px; height: 80px;
+    background: radial-gradient(circle at 35% 35%, #f5d76e, #c9a84c 60%, #8a6914);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 15px rgba(180,140,40,0.5), inset 0 -2px 6px rgba(0,0,0,0.2);
+    position: relative;
+  }
+  .seal::before {
+    content: ''; position: absolute; inset: 4px; border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.3);
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-in { animation: fadeInUp 0.8s ease-out forwards; }
+  .delay-1 { animation-delay: 0.2s; opacity: 0; }
+  .delay-2 { animation-delay: 0.4s; opacity: 0; }
+  .delay-3 { animation-delay: 0.6s; opacity: 0; }
+  .delay-4 { animation-delay: 0.8s; opacity: 0; }
+  .delay-5 { animation-delay: 1.0s; opacity: 0; }
+
+  .ribbon-left, .ribbon-right {
+    position: absolute; bottom: -20px; width: 20px; height: 40px;
+  }
+  .ribbon-left { left: 22px; background: #8a1538; transform: skewX(10deg); }
+  .ribbon-right { right: 22px; background: #6b102c; transform: skewX(-10deg); }
+
+  .star-burst { position: absolute; }
+  .star-burst svg { fill: #c9a84c; opacity: 0.15; }
+</style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app" class="h-full w-full overflow-auto flex items-center justify-center" style="background: linear-gradient(135deg, #0a0a0a 0%, #1a0a14 40%, #0f0f2d 100%); padding: 24px;">
+   <canvas id="confetti-canvas"></canvas>
+   <div class="certificate-wrap" id="cert-wrap">
+    <div class="certificate gold-border relative animate-in" id="cert" style="background: linear-gradient(170deg, #fdfaf3 0%, #f7f0e0 40%, #f2e8d0 100%); padding: 48px 56px; max-width: 700px; width: 100%; border-radius: 4px; box-shadow: 0 25px 60px rgba(0,0,0,0.5);">
+     <div class="shine-overlay" id="shine"></div><!-- Corner ornaments -->
+     <svg class="absolute top-3 left-3 opacity-20" width="60" height="60" viewbox="0 0 60 60">
+      <path d="M0 0 Q30 5 55 0 Q50 30 55 55 Q25 50 0 55 Q5 25 0 0Z" fill="none" stroke="#c9a84c" stroke-width="1.5" />
+     </svg>
+     <svg class="absolute top-3 right-3 opacity-20" width="60" height="60" viewbox="0 0 60 60" style="transform:scaleX(-1)">
+      <path d="M0 0 Q30 5 55 0 Q50 30 55 55 Q25 50 0 55 Q5 25 0 0Z" fill="none" stroke="#c9a84c" stroke-width="1.5" />
+     </svg>
+     <svg class="absolute bottom-3 left-3 opacity-20" width="60" height="60" viewbox="0 0 60 60" style="transform:scaleY(-1)">
+      <path d="M0 0 Q30 5 55 0 Q50 30 55 55 Q25 50 0 55 Q5 25 0 0Z" fill="none" stroke="#c9a84c" stroke-width="1.5" />
+     </svg>
+     <svg class="absolute bottom-3 right-3 opacity-20" width="60" height="60" viewbox="0 0 60 60" style="transform:scale(-1,-1)">
+      <path d="M0 0 Q30 5 55 0 Q50 30 55 55 Q25 50 0 55 Q5 25 0 0Z" fill="none" stroke="#c9a84c" stroke-width="1.5" />
+     </svg>
+     <div class="text-center relative z-10"><!-- Star decorations --> <img src="https://github.com/johnblackpipes-coder/JoziNites_Links/blob/main/Jozi%20Nites%20Logo.png.png?raw=true" alt="Jozi Nites Logo" style="height: 60px; margin: 0 auto 16px; object-fit: contain;" loading="lazy" onerror="console.error('Logo failed to load:', this.src); this.style.display='none';" class="animate-in delay-1">
+      <div class="flex justify-center gap-2 mb-2 animate-in delay-1"><span style="color:#c9a84c; font-size:14px;">✦</span> <span style="color:#c9a84c; font-size:10px;">✦</span> <span style="color:#c9a84c; font-size:14px;">✦</span>
+      </div>
+      <p class="uppercase tracking-[0.35em] text-xs animate-in delay-1" id="presented-by" style="color:#8a6914; font-family:'Poppins',sans-serif; font-weight:600;">Presented by</p>
+      <h2 class="mt-1 animate-in delay-1" id="team-name-el" style="font-family:'Anton',sans-serif; font-weight:400; font-size:22px; color:#1a0a14; letter-spacing:0.08em;">JOZI NITES</h2>
+      <div class="flex items-center justify-center gap-4 my-4 animate-in delay-1">
+       <div style="height:1px; width:60px; background: linear-gradient(90deg, transparent, #c9a84c);"></div><span style="color:#c9a84c; font-size:18px;">❖</span>
+       <div style="height:1px; width:60px; background: linear-gradient(270deg, transparent, #c9a84c);"></div>
+      </div>
+      <h1 class="uppercase tracking-[0.2em] animate-in delay-2" style="font-family:'Poppins',sans-serif; font-weight:600; font-size:15px; color:#6b5a3e; letter-spacing:0.3em;">Certificate of</h1>
+      <h1 class="animate-in delay-2" style="font-family:'Anton',sans-serif; font-weight:400; font-size:38px; color:#1a0a14; margin-top:2px; letter-spacing:0.04em;">APPRECIATION</h1>
+      <div class="my-5 animate-in delay-3">
+       <p style="font-family:'Poppins',sans-serif; font-size:15px; color:#6b5a3e; font-style:italic;">This award is proudly presented to</p>
+       <h2 class="mt-3 mb-2" id="recipient-el" style="font-family:'Great Vibes',cursive; font-size:52px; color:#8a1538; line-height:1.1;">Nthabbi</h2>
+       <div style="width:280px; height:1px; background: linear-gradient(90deg, transparent, #c9a84c, transparent); margin: 0 auto;"></div>
+      </div>
+      <p class="animate-in delay-4 mx-auto" id="message-el" style="font-family:'Poppins',sans-serif; font-size:16px; color:#3d2e1e; line-height:1.7; max-width:480px;">In heartfelt recognition of your exemplary work, amazing photography, stunning outfits, and captivating content. Your creative vision and dedication have truly elevated our team and inspired everyone around you.</p>
+      <div class="flex items-end justify-center gap-12 mt-8 animate-in delay-5">
+       <div class="text-center">
+        <div style="width:120px; height:1px; background:#c9a84c; margin-bottom:6px;"></div>
+        <p style="font-family:'Poppins',sans-serif; font-size:12px; color:#6b5a3e; letter-spacing:0.1em;">THE TEAM</p>
+       </div>
+       <div class="seal flex-shrink-0 relative">
+        <div class="ribbon-left"></div>
+        <div class="ribbon-right"></div><i data-lucide="award" style="color:#fff; width:32px; height:32px; position:relative; z-index:2;"></i>
+       </div>
+       <div class="text-center">
+        <div style="width:120px; height:1px; background:#c9a84c; margin-bottom:6px;"></div>
+        <p id="date-el" style="font-family:'Poppins',sans-serif; font-size:12px; color:#6b5a3e; letter-spacing:0.1em;"></p>
+       </div>
+      </div>
+      <div class="flex justify-center gap-2 mt-5 animate-in delay-5"><span style="color:#c9a84c; font-size:10px;">✦</span> <span style="color:#c9a84c; font-size:14px;">✦</span> <span style="color:#c9a84c; font-size:10px;">✦</span>
+      </div>
+      <p class="mt-4 animate-in delay-5" style="font-family:'Poppins',sans-serif; font-size:13px; color:#6b5a3e; letter-spacing:0.05em;"><a href="https://www.jozinites.co.za" target="_blank" rel="noopener noreferrer" style="color:#8a1538; text-decoration:none; font-weight:600; transition:color 0.3s;">www.jozinites.co.za</a></p>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script>
+// Date
+const d = new Date();
+document.getElementById('date-el').textContent = d.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+
+lucide.createIcons();
+
+// ---- TILT EFFECT ----
+const wrap = document.getElementById('cert-wrap');
+const cert = document.getElementById('cert');
+const shine = document.getElementById('shine');
+
+wrap.addEventListener('mousemove', e => {
+  const r = cert.getBoundingClientRect();
+  const x = (e.clientX - r.left) / r.width;
+  const y = (e.clientY - r.top) / r.height;
+  const rotY = (x - 0.5) * 20;
+  const rotX = (0.5 - y) * 15;
+  cert.classList.add('tilting');
+  cert.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.02)`;
+  cert.style.boxShadow = `${-rotY*2}px ${rotX*2}px 60px rgba(0,0,0,0.45)`;
+  shine.style.setProperty('--mx', (x*100)+'%');
+  shine.style.setProperty('--my', (y*100)+'%');
+});
+wrap.addEventListener('mouseleave', () => {
+  cert.classList.remove('tilting');
+  cert.style.transform = '';
+  cert.style.boxShadow = '';
+});
+
+// ---- CONFETTI ENGINE ----
+const canvas = document.getElementById('confetti-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+const COLORS = ['#c9a84c','#f5d76e','#8a1538','#e8437f','#fff','#ff6b6b','#ffd93d','#6BCB77','#4D96FF','#ff9a9e','#fecfef','#a18cd1'];
+
+function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+resize();
+window.addEventListener('resize', resize);
+
+function createParticle(x, y) {
+  const angle = Math.random() * Math.PI * 2;
+  const speed = 3 + Math.random() * 12;
+  const shape = Math.random() < 0.4 ? 'rect' : Math.random() < 0.7 ? 'circle' : 'strip';
+  return {
+    x, y,
+    vx: Math.cos(angle) * speed * (0.5 + Math.random()),
+    vy: Math.sin(angle) * speed * (0.5 + Math.random()) - 4,
+    color: COLORS[Math.floor(Math.random() * COLORS.length)],
+    size: 3 + Math.random() * 7,
+    rotation: Math.random() * 360,
+    rotSpeed: (Math.random() - 0.5) * 12,
+    gravity: 0.12 + Math.random() * 0.08,
+    drag: 0.98 + Math.random() * 0.015,
+    life: 1,
+    decay: 0.003 + Math.random() * 0.004,
+    shape,
+    wobble: Math.random() * 10,
+    wobbleSpeed: 0.05 + Math.random() * 0.1
+  };
+}
+
+function burst(x, y, count) {
+  for (let i = 0; i < count; i++) particles.push(createParticle(x, y));
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let i = particles.length - 1; i >= 0; i--) {
+    const p = particles[i];
+    p.vx *= p.drag;
+    p.vy *= p.drag;
+    p.vy += p.gravity;
+    p.x += p.vx + Math.sin(p.wobble) * 0.5;
+    p.y += p.vy;
+    p.wobble += p.wobbleSpeed;
+    p.rotation += p.rotSpeed;
+    p.life -= p.decay;
+    if (p.life <= 0) { particles.splice(i, 1); continue; }
+
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.rotation * Math.PI / 180);
+    ctx.globalAlpha = p.life;
+    ctx.fillStyle = p.color;
+
+    if (p.shape === 'rect') {
+      ctx.fillRect(-p.size/2, -p.size/4, p.size, p.size/2);
+    } else if (p.shape === 'circle') {
+      ctx.beginPath(); ctx.arc(0, 0, p.size/2, 0, Math.PI*2); ctx.fill();
+    } else {
+      ctx.fillRect(-p.size/2, -1, p.size, 2.5);
+    }
+    ctx.restore();
+  }
+  requestAnimationFrame(animate);
+}
+animate();
+
+// Initial massive bursts
+function megaBurst() {
+  const w = canvas.width, h = canvas.height;
+  // Corners and edges
+  burst(w*0.1, h*0.1, 80);
+  burst(w*0.9, h*0.1, 80);
+  burst(w*0.5, h*0.05, 100);
+  burst(w*0.2, h*0.5, 60);
+  burst(w*0.8, h*0.5, 60);
+  burst(w*0.5, h*0.3, 90);
+  burst(w*0.3, h*0.2, 50);
+  burst(w*0.7, h*0.2, 50);
+  // Delayed waves
+  setTimeout(() => { burst(w*0.5, h*0.5, 120); burst(w*0.15, h*0.8, 60); burst(w*0.85, h*0.8, 60); }, 400);
+  setTimeout(() => { burst(w*0.3, h*0.15, 70); burst(w*0.7, h*0.15, 70); burst(w*0.5, h*0.6, 80); }, 800);
+  setTimeout(() => { burst(w*0.1, h*0.4, 50); burst(w*0.9, h*0.4, 50); burst(w*0.5, h*0.1, 90); }, 1200);
+  setTimeout(() => { burst(w*0.4, h*0.3, 60); burst(w*0.6, h*0.3, 60); }, 1600);
+}
+megaBurst();
+
+// Continuous gentle confetti
+setInterval(() => {
+  if (particles.length < 400) {
+    burst(Math.random() * canvas.width, -10, 5);
+  }
+}, 300);
+
+// Click for more confetti
+document.addEventListener('click', e => burst(e.clientX, e.clientY, 60));
+
+// ---- ELEMENT SDK ----
+const defaultConfig = {
+  recipient_name: 'Nthabbi',
+  team_name: 'JOZI NITES',
+  message_body: 'In heartfelt recognition of your exemplary work, amazing photography, stunning outfits, and captivating content. Your creative vision and dedication have truly elevated our team and inspired everyone around you.',
+  background_color: '#0a0a0a',
+  surface_color: '#fdfaf3',
+  text_color: '#1a0a14',
+  primary_action: '#8a1538',
+  secondary_action: '#c9a84c',
+  font_family: 'Anton',
+  font_size: 16
+};
+
+function applyConfig(config) {
+  const c = { ...defaultConfig, ...config };
+
+  document.getElementById('recipient-el').textContent = c.recipient_name;
+  document.getElementById('team-name-el').textContent = c.team_name;
+  document.getElementById('message-el').textContent = c.message_body;
+
+  // Colors
+  document.getElementById('app').style.background = `linear-gradient(135deg, ${c.background_color} 0%, ${c.background_color}ee 100%)`;
+  const cert = document.getElementById('cert');
+  cert.style.background = `linear-gradient(170deg, ${c.surface_color} 0%, ${c.surface_color}dd 100%)`;
+  document.getElementById('recipient-el').style.color = c.primary_action;
+
+  document.querySelectorAll('[style*="color:#1a0a14"], [style*="color: #1a0a14"]').forEach(el => {
+    if (el.id !== 'recipient-el') el.style.color = c.text_color;
+  });
+
+  // Font
+  const ff = c.font_family + ", 'Anton', sans-serif";
+  document.querySelectorAll('h1, h2').forEach(el => el.style.fontFamily = ff);
+  document.getElementById('team-name-el').style.fontFamily = ff;
+
+  // Font size
+  const base = c.font_size;
+  document.getElementById('message-el').style.fontSize = base + 'px';
+}
+
+window.elementSdk.init({
+  defaultConfig,
+  onConfigChange: async (config) => applyConfig(config),
+  mapToCapabilities: (config) => ({
+    recolorables: [
+      { get: () => config.background_color || defaultConfig.background_color, set: v => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+      { get: () => config.surface_color || defaultConfig.surface_color, set: v => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+      { get: () => config.text_color || defaultConfig.text_color, set: v => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+      { get: () => config.primary_action || defaultConfig.primary_action, set: v => { config.primary_action = v; window.elementSdk.setConfig({ primary_action: v }); } },
+      { get: () => config.secondary_action || defaultConfig.secondary_action, set: v => { config.secondary_action = v; window.elementSdk.setConfig({ secondary_action: v }); } },
+    ],
+    borderables: [],
+    fontEditable: { get: () => config.font_family || defaultConfig.font_family, set: v => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); } },
+    fontSizeable: { get: () => config.font_size || defaultConfig.font_size, set: v => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); } },
+  }),
+  mapToEditPanelValues: (config) => new Map([
+    ['recipient_name', config.recipient_name || defaultConfig.recipient_name],
+    ['team_name', config.team_name || defaultConfig.team_name],
+    ['message_body', config.message_body || defaultConfig.message_body],
+  ])
+});
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ea474d09778a44f',t:'MTc3NTg1MjQ3MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
